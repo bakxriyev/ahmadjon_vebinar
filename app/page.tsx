@@ -22,11 +22,11 @@ export default function MasterclassLanding() {
     return () => clearInterval(timer)
   }, [timeLeft])
 
-const formatTime = (seconds: number): string => {
-  const mins = Math.floor(seconds / 60)
-  const secs = seconds % 60
-  return `${mins}:${secs.toString().padStart(2, "0")}`
-}
+  const formatTime = (seconds: number): string => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins}:${secs.toString().padStart(2, "0")}`
+  }
 
 
   useEffect(() => {
@@ -38,36 +38,36 @@ const formatTime = (seconds: number): string => {
   }, [isModalOpen])
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-  let value = e.target.value.replace(/\D/g, "");
+    let value = e.target.value.replace(/\D/g, "");
 
-  if (value.startsWith("998")) {
-    value = value.slice(3);
-  }
-
-  // Limit to 9 digits (after 998)
-  if (value.length > 9) {
-    value = value.slice(0, 9);
-  }
-
-  // Format as +998 XX XXX XX XX
-  if (value.length > 0) {
-    if (value.length <= 2) {
-      setPhoneNumber(`+998 ${value}`);
-    } else if (value.length <= 5) {
-      setPhoneNumber(`+998 ${value.slice(0, 2)} ${value.slice(2)}`);
-    } else if (value.length <= 7) {
-      setPhoneNumber(
-        `+998 ${value.slice(0, 2)} ${value.slice(2, 5)} ${value.slice(5)}`
-      );
-    } else {
-      setPhoneNumber(
-        `+998 ${value.slice(0, 2)} ${value.slice(2, 5)} ${value.slice(5, 7)} ${value.slice(7)}`
-      );
+    if (value.startsWith("998")) {
+      value = value.slice(3);
     }
-  } else {
-    setPhoneNumber("");
-  }
-};
+
+    // Limit to 9 digits (after 998)
+    if (value.length > 9) {
+      value = value.slice(0, 9);
+    }
+
+    // Format as +998 XX XXX XX XX
+    if (value.length > 0) {
+      if (value.length <= 2) {
+        setPhoneNumber(`+998 ${value}`);
+      } else if (value.length <= 5) {
+        setPhoneNumber(`+998 ${value.slice(0, 2)} ${value.slice(2)}`);
+      } else if (value.length <= 7) {
+        setPhoneNumber(
+          `+998 ${value.slice(0, 2)} ${value.slice(2, 5)} ${value.slice(5)}`
+        );
+      } else {
+        setPhoneNumber(
+          `+998 ${value.slice(0, 2)} ${value.slice(2, 5)} ${value.slice(5, 7)} ${value.slice(7)}`
+        );
+      }
+    } else {
+      setPhoneNumber("");
+    }
+  };
 
   const handleSubmit = async () => {
     if (!phoneNumber.trim()) {
@@ -416,25 +416,25 @@ const formatTime = (seconds: number): string => {
               </div>
             ))}
           </div>
-           <footer className="w-full py-6">
-  <div className="flex items-center justify-center gap-3">
-    <p className="text-gray-500 text-sm">Created by</p>
-    <a
-      href="https://t.me/it_zoneuz"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="hover:opacity-80 transition-all duration-300 transform hover:scale-105"
-    >
-      <img
-        src="./itzone.png"
-        alt="IT Zone Telegram"
-        width={150}
-        height={100}
-        className="cursor-pointer filter brightness-12 invert-[20%] sepia-[300%] saturate-[10000%] hue-rotate-[500deg]"
-      />
-    </a>
-  </div>
-</footer>
+          <footer className="w-full py-6">
+            <div className="flex items-center justify-center gap-3">
+              <p className="text-gray-500 text-sm">Created by</p>
+              <a
+                href="https://t.me/it_zoneuz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:opacity-80 transition-all duration-300 transform hover:scale-105"
+              >
+                <img
+                  src="./itzone.png"
+                  alt="IT Zone Telegram"
+                  width={150}
+                  height={100}
+                  className="cursor-pointer filter brightness-12 invert-[20%] sepia-[300%] saturate-[10000%] hue-rotate-[500deg]"
+                />
+              </a>
+            </div>
+          </footer>
 
         </div>
       </div>
@@ -468,17 +468,17 @@ const formatTime = (seconds: number): string => {
                   onChange={handlePhoneChange}
                   className="w-full px-4 py-3.5 border-2 border-gray-300 rounded-2xl focus:border-green-700 focus:ring-2 focus:ring-green-200 focus:outline-none transition-all text-gray-900 text-base"
                   placeholder="+998 __ ___ __ __"
-                  maxLength="19"
+                  maxLength={19}
                 />
               </div>
 
+
               {submitMessage && (
                 <div
-                  className={`p-4 rounded-xl text-center text-sm md:text-base font-medium ${
-                    submitMessage.includes("muvaffaqiyatli")
+                  className={`p-4 rounded-xl text-center text-sm md:text-base font-medium ${submitMessage.includes("muvaffaqiyatli")
                       ? "bg-green-100 text-green-800 border border-green-200"
                       : "bg-red-100 text-red-800 border border-red-200"
-                  }`}
+                    }`}
                 >
                   {submitMessage}
                 </div>
