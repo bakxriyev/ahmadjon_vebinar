@@ -85,7 +85,7 @@ export default function MasterclassLanding() {
     router.push("/thank-you")
 
     // Send data to backend asynchronously in the background
-    fetch("/api/register", {
+    fetch("https://b.realexamielts.uz/usercha", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
