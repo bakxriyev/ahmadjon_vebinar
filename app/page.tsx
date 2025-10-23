@@ -37,33 +37,37 @@ const formatTime = (seconds: number): string => {
     }
   }, [isModalOpen])
 
-  const handlePhoneChange = (e) => {
-    let value = e.target.value.replace(/\D/g, "")
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  let value = e.target.value.replace(/\D/g, "");
 
-    if (value.startsWith("998")) {
-      value = value.slice(3)
-    }
-
-    // Limit to 9 digits (after 998)
-    if (value.length > 9) {
-      value = value.slice(0, 9)
-    }
-
-    // Format as +998 XX XXX XX XX
-    if (value.length > 0) {
-      if (value.length <= 2) {
-        setPhoneNumber(`+998 ${value}`)
-      } else if (value.length <= 5) {
-        setPhoneNumber(`+998 ${value.slice(0, 2)} ${value.slice(2)}`)
-      } else if (value.length <= 7) {
-        setPhoneNumber(`+998 ${value.slice(0, 2)} ${value.slice(2, 5)} ${value.slice(5)}`)
-      } else {
-        setPhoneNumber(`+998 ${value.slice(0, 2)} ${value.slice(2, 5)} ${value.slice(5, 7)} ${value.slice(7)}`)
-      }
-    } else {
-      setPhoneNumber("")
-    }
+  if (value.startsWith("998")) {
+    value = value.slice(3);
   }
+
+  // Limit to 9 digits (after 998)
+  if (value.length > 9) {
+    value = value.slice(0, 9);
+  }
+
+  // Format as +998 XX XXX XX XX
+  if (value.length > 0) {
+    if (value.length <= 2) {
+      setPhoneNumber(`+998 ${value}`);
+    } else if (value.length <= 5) {
+      setPhoneNumber(`+998 ${value.slice(0, 2)} ${value.slice(2)}`);
+    } else if (value.length <= 7) {
+      setPhoneNumber(
+        `+998 ${value.slice(0, 2)} ${value.slice(2, 5)} ${value.slice(5)}`
+      );
+    } else {
+      setPhoneNumber(
+        `+998 ${value.slice(0, 2)} ${value.slice(2, 5)} ${value.slice(5, 7)} ${value.slice(7)}`
+      );
+    }
+  } else {
+    setPhoneNumber("");
+  }
+};
 
   const handleSubmit = async () => {
     if (!phoneNumber.trim()) {
