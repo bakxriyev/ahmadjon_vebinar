@@ -1,73 +1,54 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
 import { X } from "lucide-react"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
 
 export default function MasterclassLanding() {
-  const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [phoneNumber, setPhoneNumber] = useState("")
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState("")
-  const [timeLeft, setTimeLeft] = useState(4 * 60)
-
-  useEffect(() => {
-    if (timeLeft <= 0) return
-
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => prev - 1)
-    }, 1000)
-
-    return () => clearInterval(timer)
-  }, [timeLeft])
-
-  const formatTime = (seconds: number): string => {
-    const mins = Math.floor(seconds / 60)
-    const secs = seconds % 60
-    return `${mins}:${secs.toString().padStart(2, "0")}`
-  }
-
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     if (isModalOpen) {
-      document.body.style.overflow = "auto"
+      document.body.style.overflow = "hidden"
     } else {
       document.body.style.overflow = "auto"
     }
   }, [isModalOpen])
 
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    let value = e.target.value.replace(/\D/g, "");
+  const handlePhoneChange = (e) => {
+    let value = e.target.value.replace(/\D/g, "")
 
     if (value.startsWith("998")) {
-      value = value.slice(3);
+      value = value.slice(3)
     }
 
-    // Limit to 9 digits (after 998)
     if (value.length > 9) {
-      value = value.slice(0, 9);
+      value = value.slice(0, 9)
     }
 
-    // Format as +998 XX XXX XX XX
     if (value.length > 0) {
       if (value.length <= 2) {
-        setPhoneNumber(`+998 ${value}`);
+        setPhoneNumber(`+998 ${value}`)
       } else if (value.length <= 5) {
-        setPhoneNumber(`+998 ${value.slice(0, 2)} ${value.slice(2)}`);
+        setPhoneNumber(`+998 ${value.slice(0, 2)} ${value.slice(2)}`)
       } else if (value.length <= 7) {
         setPhoneNumber(
           `+998 ${value.slice(0, 2)} ${value.slice(2, 5)} ${value.slice(5)}`
-        );
+        )
       } else {
         setPhoneNumber(
           `+998 ${value.slice(0, 2)} ${value.slice(2, 5)} ${value.slice(5, 7)} ${value.slice(7)}`
-        );
+        )
       }
     } else {
-      setPhoneNumber("");
+      setPhoneNumber("")
     }
-  };
+  }
 
   const handleSubmit = async () => {
     if (!phoneNumber.trim()) {
@@ -83,340 +64,232 @@ export default function MasterclassLanding() {
 
     const cleanPhoneNumber = phoneNumber.replace(/\D/g, "")
 
-    // Redirect immediately without waiting
-    setIsModalOpen(false)
-    setPhoneNumber("")
+    setIsSubmitting(true)
     setSubmitMessage("")
-    router.push("/thank-you")
 
-    // Send data to backend asynchronously in the background
-    fetch("https://b.realexamielts.uz/usercha", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        phone_number: cleanPhoneNumber,
-      }),
-    }).catch((error) => {
-      console.log("[v0] Background registration error:", error)
-    })
+    try {
+      // Backendga ma'lumot yuborish
+      const response = await fetch("https://b.realexamielts.uz/usercha", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          phone_number: cleanPhoneNumber,
+        }),
+      })
+
+      if (response.ok) {
+        // Muvaffaqiyatli yuborilgandan keyin thank-you sahifasiga yo'naltirish
+        router.push("/thank-you")
+      } else {
+        setSubmitMessage("Xatolik yuz berdi. Iltimos qayta urinib ko'ring")
+        setIsSubmitting(false)
+      }
+    } catch (error) {
+      console.log("[v0] Registration error:", error)
+      // Xatolik bo'lsa ham foydalanuvchini yo'naltirish (agar kerak bo'lsa)
+      router.push("/thank-you")
+    }
   }
 
-  const topics = [
-    {
-      id: 1,
-      title: "Kasalliklar aslida nimadan kelib chiqadi?",
-      image: "/bolingan.webp",
-    },
-    {
-      id: 2,
-      title: "Tushkunlik, qo'rquv, asabiylashish, vahimadan qanday chiqish mumkin?",
-      image: "/opa.webp",
-    },
-    {
-      id: 3,
-      title: "Dori-darmonsiz sog'likni qanday tiklash mumkin?",
-      image: "/tana.webp",
-    },
-    {
-      id: 4,
-      title: "Sog'lom hayot sari qadam: maxsus kurs taqdimoti",
-      image: "/odam.webp",
-    },
-  ]
-  const topics2 = [
-    {
-      id: 1,
-      title: "Kasalliklar aslida nimadan kelib chiqadi?",
-      image: "/oka.webp",
-    },
-    {
-      id: 2,
-      title: "Tushkunlik, qo'rquv, asabiylashish, vahimadan qanday chiqish mumkin?",
-      image: "/2.webp",
-    },
-    {
-      id: 3,
-      title: "Dori-darmonsiz sog'likni qanday tiklash mumkin?",
-      image: "/tana.webp",
-    },
-  ]
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white overflow-auto">
+    <div className="min-h-screen bg-white">
       <style>{`
-        @keyframes slideInDown {
-          from {
-            opacity: 0;
-            transform: translateY(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes slideInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+        
+        * {
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        @keyframes pulse3d {
-          0%, 100% {
-            transform: scale(1) rotateX(0deg);
-          }
-          50% {
-            transform: scale(1.05) rotateX(5deg);
-          }
-        }
-
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-
-        @keyframes glow {
-          0%, 100% {
-            box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
-          }
-          50% {
-            box-shadow: 0 0 40px rgba(34, 197, 94, 0.6);
-          }
-        }
-
-        @keyframes countdownPulse {
-          0%, 100% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.1);
-          }
-        }
-
-        .animate-slide-in-down {
-          animation: slideInDown 0.8s ease-out;
-        }
-
-        .animate-slide-in-up {
-          animation: slideInUp 0.8s ease-out;
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
 
         .animate-fade-in {
-          animation: fadeIn 1s ease-out;
+          animation: fadeIn 0.3s ease-out;
         }
 
-        .animate-pulse-3d {
-          animation: pulse3d 2s ease-in-out infinite;
-        }
-
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-
-        .animate-glow {
-          animation: glow 2s ease-in-out infinite;
-        }
-
-        .animate-countdown-pulse {
-          animation: countdownPulse 1s ease-in-out infinite;
+        .header-3d {
+          background: white;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.06);
+          transform: translateZ(0);
         }
 
         .button-3d {
-          perspective: 1000px;
-          transform-style: preserve-3d;
-          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-          position: relative;
-          box-shadow: 0 8px 0 #1e3a1f, 0 15px 20px rgba(0, 0, 0, 0.3);
+          transform: translateY(0);
+          box-shadow: 0 6px 0 #0c4a6e, 0 8px 16px rgba(0, 0, 0, 0.2);
+          transition: all 0.15s ease;
         }
 
         .button-3d:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 12px 0 #1e3a1f, 0 20px 30px rgba(0, 0, 0, 0.4);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 0 #0c4a6e, 0 12px 20px rgba(0, 0, 0, 0.25);
         }
 
         .button-3d:active {
-          transform: translateY(4px);
-          box-shadow: 0 4px 0 #1e3a1f, 0 8px 15px rgba(0, 0, 0, 0.2);
+          transform: translateY(3px);
+          box-shadow: 0 3px 0 #0c4a6e, 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
-        .text-animate {
-          animation: slideInUp 0.8s ease-out;
-        }
-
-        .topic-card {
-          animation: slideInUp 0.8s ease-out;
-          transition: all 0.3s ease;
-        }
-
-        .topic-card:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        .date-badge {
+          background: white;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          transform: translateZ(0);
         }
       `}</style>
 
       {/* Header */}
-      <div className="bg-white py-4 px-4 md:px-6 sticky top-0 z-20 shadow-sm animate-slide-in-down">
-        <div className="max-w-6xl mx-auto flex items-center justify-center md:justify-start gap-3 md:gap-4 flex-wrap">
-          <div className="bg-white border-2 border-cyan-400 text-cyan-400 text-base md:text-xl font-semibold px-5 py-2.5 rounded-full animate-pulse-3d">
-            17-oktabr,
-            <br className="md:hidden" />
-            20:00
+      <div className="header-3d px-4 py-4 sticky top-0 z-50">
+        <div className="max-w-5xl mx-auto flex items-center justify-center gap-4">
+          <div className="date-badge flex items-center gap-2 px-4 py-2.5 rounded-xl">
+            <svg className="w-5 h-5 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+            </svg>
+            <span className="text-lg sm:text-xl font-black text-gray-900">1-noyabr</span>
           </div>
-          <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-pink-500 via-purple-500 to-yellow-400 rounded-full flex items-center justify-center p-0.5 animate-float">
-            <div className="w-full h-full bg-gray-900 rounded-full flex items-center justify-center">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="7" r="3" stroke="#22D3EE" strokeWidth="2" />
-                <circle cx="7" cy="15" r="3" stroke="#22D3EE" strokeWidth="2" />
-                <circle cx="17" cy="15" r="3" stroke="#22D3EE" strokeWidth="2" />
-                <line x1="12" y1="10" x2="9.5" y2="13" stroke="#22D3EE" strokeWidth="2" />
-                <line x1="12" y1="10" x2="14.5" y2="13" stroke="#22D3EE" strokeWidth="2" />
-              </svg>
-            </div>
-          </div>
-          <div className="bg-white border-2 border-cyan-400 text-cyan-400 text-base md:text-xl font-semibold px-5 py-2.5 rounded-full animate-pulse-3d">
-            Ahadjon
-            <br className="md:hidden" />
-            Qo'shoqov
-          </div>
+          
+          
+          <span className="text-xl sm:text-2xl font-black text-gray-900">20:00</span>
+          <span className="text-xl sm:text-2xl uppercase font-black text-blue-900">Ahadjon Qo'shoqov</span>
         </div>
       </div>
 
-      {/* Hero Section */}
-      <div className="bg-white py-6 md:py-8 px-4 md:px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-6 md:mb-8 leading-tight text-animate">
-            ASABIYLIK, YOMON HAYOLLAR,
-            <br />
-            TUSHKUNLIK VA VAHIMADAN
-            <br />
-            QUTILISHNING 3 TA SINALGAN USULI
+      {/* Main Content */}
+      <div className="max-w-2xl mx-auto px-4 py-6">
+        {/* Main Title */}
+        <div className="text-center mb-2">
+          <h1 className="leading-tight">
+            <div className="text-[28px] uppercase sm:text-[36px] md:text-[42px] font-black text-gray-900 tracking-tight">
+              Bu 3 texnika asabiylikdan
+            </div>
+            <div className="text-[28px] uppercase sm:text-[36px] md:text-[42px] font-black text-blue-900 tracking-tight">
+              azob chekkan minglab
+            </div>
+            <div className="text-[28px] uppercase sm:text-[36px] md:text-[42px] font-black tracking-tight">
+              <span className="text-blue-900">odamlarga</span>
+              <span className="text-blue-900"> yordam</span>
+              <span className="text-blue-900"> bergan</span>
+            </div>
+            
           </h1>
+        </div>
 
-          {/* Speaker Image */}
-          <div className="relative mb-2 animate-slide-in-up">
-            <div className="relative w-full max-w-lg mx-auto">
-              <img
-                src="./photo.webp"
-                alt="Ahadjon Qo'shoqov"
-                className="w-full h-auto object-contain transition-transform duration-500 hover:scale-105"
-                style={{
-                  filter: "drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15))",
-                }}
-              />
-              <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white via-white/95 to-transparent pointer-events-none"></div>
-            </div>
-          </div>
+        {/* Limited Offer Text */}
+        <div className="text-center  mb-0">
+          <p className="text-base sm:text-lg text-gray-900">
+            <span className="text-red-600 font-black">90 daqiqalik jonli masterklass - vahima va </span>
+          </p>
+          <span className="text-black font-black">tushkunlikdan ozod hayot sari birinchi qadam
+          </span>
 
-          {/* CTA Button */}
-          <div className="relative -mt-14 pb-8 animate-slide-in-up">
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="button-3d bg-gradient-to-b from-green-600 animate-countdown-pulse to-green-800 hover:from-green-700 hover:to-green-900 text-yellow-300 text-xl md:text-2xl font-black py-5 md:py-6 px-16 md:px-24 rounded-full transition-all duration-300 transform hover:scale-105"
-            >
-              RO'YXATDAN O'TISH
-            </button>
+        </div>
+
+        {/* Speaker Image - Half visible */}
+        <div className="-mb-8 relative" style={{ maxHeight: '500px', overflow: 'hidden' }}>
+          <div className="w-full max-w-md mx-auto">
+            <Image
+              src="/photo.webp"
+              alt="Speaker"
+              width={500}
+              height={600}
+              priority
+              quality={85}
+              className="w-full h-auto"
+              style={{ borderRadius: '24px 24px 0 0' }}
+            />
           </div>
         </div>
-      </div>
 
-      {/* Topics Section */}
-      <div className="bg-gradient-to-b from-green-800 to-green-900 py-10 md:py-14 px-4 md:px-6">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-white text-center text-[20px] uppercase md:text-xl font-bold mb-8 md:mb-10 leading-relaxed text-animate">
-            Ushbu masterklassda quyidagi
-            <br />
-            savollarga javob topasiz:
-          </h2>
-
-          <div className="space-y-4">
-            {topics.map((topic, index) => (
-              <div
-                key={topic.id}
-                className="topic-card bg-gradient-to-r from-gray-100 to-white rounded-full py-3 md:py-3.5 px-4 md:px-5 flex items-center gap-3 md:gap-4 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden shadow-lg">
-                  <img
-                    src={topic.image || "/placeholder.svg"}
-                    alt={`Topic ${topic.id}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <p className="text-gray-900 text-base md:text-lg font-semibold flex-1 leading-snug">{topic.title}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Section */}
-      <div className="bg-gradient-to-b from-white to-gray-50 py-10 md:py-14 px-4 md:px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="mb-8 md:mb-10 animate-slide-in-up">
-            <p className="text-gray-900 text-[15px] md:text-xl font-bold mb-3 leading-relaxed text-animate">
-              Ushbu vaqt tugaguncha ro'yxatdan
-              <br />
-              o'ting va quyidagi videodarslarni
-              <br />
-              qo'lga kiriting:
-            </p>
-            <div className="mb-8">
-              <div
-                className={`text-5xl md:text-7xl font-black text-gray-900 tracking-wider animate-countdown-pulse ${timeLeft <= 60 ? "text-red-600" : ""}`}
-              >
-                {formatTime(timeLeft)}
-              </div>
-              <div className="text-2xl md:text-3xl font-black text-gray-600 tracking-wider mt-2">Vaqt qoldi</div>
-            </div>
-          </div>
-
+        {/* CTA Button */}
+        <div className="mb-6">
           <button
             onClick={() => setIsModalOpen(true)}
-            className="button-3d bg-gradient-to-b from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-yellow-300 text-xl md:text-2xl lg:text-3xl font-black py-6 md:py-7 px-20 md:px-28 rounded-full transition-all duration-300 transform hover:scale-105"
+            className="button-3d w-full max-w-md mx-auto block bg-blue-900 hover:bg-blue-950 text-white text-lg sm:text-xl font-black py-4 sm:py-5 rounded-full"
           >
-            RO'YXATDAN O'TISH
+            BEPUL QATNASHISH
           </button>
+        </div>
 
-          {/* Additional Topics */}
-          <div className="space-y-4 mt-10">
-            {topics2.slice(0, 3).map((topic, index) => (
-              <div
-                key={`bottom-${topic.id}`}
-                className="topic-card bg-gradient-to-r from-gray-100 to-white rounded-full py-3 md:py-3.5 px-4 md:px-5 flex items-center gap-3 md:gap-4 shadow-md border border-gray-200"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden shadow-lg">
-                  <img
-                    src={topic.image || "/placeholder.svg"}
-                    alt={`Topic ${topic.id}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <p className="text-gray-900 text-base md:text-lg font-semibold flex-1 text-left leading-snug">
-                  {topic.title}
-                </p>
+        {/* Gift Box */}
+        <div className="max-w-md mx-auto mb-6">
+          <div className="bg-white border-2 border-gray-200 rounded-2xl p-4">
+            <div className="flex items-center gap-6">
+              <div className="text-3xl sm:text-4xl flex-shrink-0">🎁</div>
+              <div>
+                <ul className="text-blue-900 font-bold text-[15px] mb-1.5">
+                  Ro'yxatdan o'tganlar uchun maxsus ushbu video darsliklar sovg'a sifatida beriladi:
+                </ul>
+                <ol className="text-gray-700 sm:text-sm leading-relaxed font-bold text-[13px] mb-1.5">
+                  <li>- Kasalliklar aslida nimadan kelib chiqadi?
+                  </li>
+                  <li>
+                    - Tushkunlik, qo'rquv, asabiylashish, vahimadan qanday chiqish mumkin?
+                  </li>
+                  <li>
+                    - Dori-darmonsiz sog'likni qanday tiklash mumkin?
+                  </li>
+                 </ol>
               </div>
-            ))}
+            </div>
           </div>
-          <footer className="w-full py-6">
+        </div>
+
+        {/* Benefits Section */}
+        <div className="max-w-md mx-auto mb-12">
+          <h2 className="text-lg sm:text-xl font-black text-gray-900 mb-5">Aksiyada qatnashib:</h2>
+          
+          <div className="space-y-2">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 mt-0.5">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-900 rounded-full flex items-center justify-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+              <p className="text-gray-900 text-xl sm:text-base leading-relaxed">
+                Kasalliklar aslida nima sababdan kelib chiqishini
+              </p>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 mt-0.5">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-900 rounded-full flex items-center justify-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+              <p className="text-gray-900 text-sm sm:text-base leading-relaxed">
+                Qanday qilib Tushkunlik, qo'rquv va asabiylashishdan butkul xalos bo'lishni
+              </p>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 mt-0.5">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-900 rounded-full flex items-center justify-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+              <p className="text-gray-900 text-sm sm:text-base leading-relaxed">
+                Qanday qilib dori-darmonsiz sog'likni tiklash usullarini bilib olasiz
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom CTA Button */}
+        <div className="mb-8">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="button-3d w-full max-w-md mx-auto block bg-blue-900 hover:bg-blue-950 text-white text-lg sm:text-xl font-black py-4 sm:py-5 rounded-full"
+          >
+            BEPUL QATNASHISH
+          </button>
+        </div>
+        <footer className="w-full py-6">
             <div className="flex items-center justify-center gap-3">
               <p className="text-gray-500 text-sm">Created by</p>
               <a
@@ -435,50 +308,50 @@ export default function MasterclassLanding() {
               </a>
             </div>
           </footer>
-
-        </div>
       </div>
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm overflow-y-auto animate-fade-in">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 md:p-8 relative shadow-2xl my-10 animate-slide-in-up">
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white rounded-3xl max-w-md w-full p-8 relative shadow-2xl">
             <button
               onClick={() => {
                 setIsModalOpen(false)
                 setSubmitMessage("")
               }}
               className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors p-1 hover:bg-gray-100 rounded-full"
+              disabled={isSubmitting}
             >
               <X size={28} strokeWidth={2.5} />
             </button>
 
-            <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-6 text-center text-animate">
+            <h2 className="text-3xl font-black text-gray-900 mb-6 text-center">
               Ro'yxatdan o'tish
             </h2>
 
             <div className="space-y-5">
               <div>
-                <label className="block text-gray-700 font-semibold mb-2 text-sm md:text-base">
+                <label className="block text-gray-700 font-semibold mb-2 text-base">
                   Telefon raqam <span className="text-red-600">*</span>
                 </label>
                 <input
                   type="tel"
                   value={phoneNumber}
                   onChange={handlePhoneChange}
-                  className="w-full px-4 py-3.5 border-2 border-gray-300 rounded-2xl focus:border-green-700 focus:ring-2 focus:ring-green-200 focus:outline-none transition-all text-gray-900 text-base"
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3.5 border-2 border-gray-300 rounded-2xl focus:border-blue-900 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all text-gray-900 text-base disabled:bg-gray-100 disabled:cursor-not-allowed"
                   placeholder="+998 __ ___ __ __"
                   maxLength={19}
                 />
               </div>
 
-
               {submitMessage && (
                 <div
-                  className={`p-4 rounded-xl text-center text-sm md:text-base font-medium ${submitMessage.includes("muvaffaqiyatli")
+                  className={`p-4 rounded-xl text-center text-base font-medium ${
+                    submitMessage.includes("muvaffaqiyatli")
                       ? "bg-green-100 text-green-800 border border-green-200"
                       : "bg-red-100 text-red-800 border border-red-200"
-                    }`}
+                  }`}
                 >
                   {submitMessage}
                 </div>
@@ -487,9 +360,9 @@ export default function MasterclassLanding() {
               <button
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="button-3d w-full bg-gradient-to-b from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white text-lg md:text-xl font-black py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.05] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                className="w-full bg-blue-900 hover:bg-blue-950 text-white text-xl font-black py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] disabled:bg-blue-700 disabled:cursor-not-allowed disabled:transform-none"
               >
-                {isSubmitting ? "Yuborilmoqda..." : "Ro'yxatdan o'tish"}
+                {isSubmitting ? "Yuklanmoqda..." : "Ro'yxatdan o'tish"}
               </button>
             </div>
           </div>
