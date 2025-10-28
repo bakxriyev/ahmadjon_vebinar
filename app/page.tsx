@@ -166,7 +166,7 @@ export default function MasterclassLanding() {
         {/* Main Title */}
         <div className="text-center mb-2">
           <h1 className="leading-tight">
-            <div className="text-[28px] uppercase sm:text-[36px] md:text-[42px] font-black text-gray-900 tracking-tight">
+            <div className="text-[25px] uppercase sm:text-[36px] md:text-[42px] font-black text-gray-900 tracking-tight">
               Bu 3 texnika asabiylikdan
             </div>
             <div className="text-[28px] uppercase sm:text-[36px] md:text-[42px] font-black text-blue-900 tracking-tight">
