@@ -87,7 +87,7 @@ export default function MasterclassLanding() {
     } catch (error) {
       console.log("[v0] Registration error:", error)
       // Xatolik bo'lsa ham foydalanuvchini yo'naltirish (agar kerak bo'lsa)
-      router.push("/thank-you")
+      router.push("/thankyou")
     }
   }
 
@@ -215,6 +215,9 @@ export default function MasterclassLanding() {
           >
             BEPUL QATNASHISH
           </button>
+           <p className="text-center mt-3 register-text-3d text-lg font-bold animate-float">
+              Ro'yxatdan o'tish uchun bosing
+            </p>
         </div>
 
         {/* Gift Box */}
@@ -255,7 +258,7 @@ export default function MasterclassLanding() {
                 </div>
               </div>
               <p className="text-gray-900 text-[15px] sm:text-base leading-relaxed">
-                Kasalliklarning psixosomatik sabablarini bilib olasiz, bu orqali siz tanangiz va ongingiz o‘rtasidagi bog‘liqlikni tushunasiz
+                Kasalliklarning psixosomatik sabablarini bilib olasiz, bu orqali siz tanangiz va ongingiz o‘rtasidagi bog‘liqlikni tushunasiz;
               </p>
             </div>
 
@@ -268,7 +271,7 @@ export default function MasterclassLanding() {
                 </div>
               </div>
               <p className="text-gray-900 text-[15px] sm:text-base leading-relaxed">
-               Tushkunlik va qo‘rquv aslida nimadan kelib chiqishini bilib olasiz, bu orqali siz ruhiy bosimdan butunlay ozod bo‘lasiz</p>
+               Tushkunlik va qo‘rquv aslida nimadan kelib chiqishini bilib olasiz, bu orqali siz ruhiy bosimdan butunlay ozod bo‘lasiz;</p>
             </div>
 
             <div className="flex items-start gap-3">
@@ -280,7 +283,7 @@ export default function MasterclassLanding() {
                 </div>
               </div>
               <p className="text-gray-900 text-[15px] sm:text-base leading-relaxed">
-                Tabiiy sog‘ayish mexanizmlarini bilib olasiz, bu orqali siz o‘zingizni doimiy energiya va ishonch holatida yashashga o‘rgatasiz
+                Tabiiy sog‘ayish mexanizmlarini bilib olasiz, bu orqali siz o‘zingizni doimiy energiya va ishonch holatida yashashga o‘rgatasiz.
               </p>
             </div>
           </div>
@@ -294,6 +297,9 @@ export default function MasterclassLanding() {
           >
             BEPUL QATNASHISH
           </button>
+           <p className="text-center mt-3 register-text-3d text-lg font-bold animate-float">
+              Ro'yxatdan o'tish uchun bosing
+            </p>
         </div>
         <footer className="w-full py-6">
             <div className="flex items-center justify-center gap-3">

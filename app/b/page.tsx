@@ -146,7 +146,7 @@ export default function MasterclassLanding() {
       {/* Main Content */}
       <div className="max-w-2xl mx-auto px-4 py-6">
         {/* Title */}
-        <div className="text-center -mb-34 px-4">
+        <div className="text-center -mb-36 px-4">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white uppercase leading-tight mb-3">
             Bu 3 texnika asabiylikdan azob chekkan minglab odamlarga yordam bergan.
           </h1>
@@ -156,21 +156,21 @@ export default function MasterclassLanding() {
         </div>
 
         {/* Image + Button */}
-        <div className="relative w-full max-w-md mx-auto mb-20">
-          <div className="rounded-3xl p-1">
+        <div className="relative w-full max-w-md mx-auto mb-10">
+          <div className=" p-4 gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-fade-in">
             <div className="rounded-3xl overflow-hidden ">
               <Image
-                src="/okam.png"
+                src="/tiniq.png"
                 alt="Video preview"
-                width={800}
-                height={800}
+                width={200}
+                height={300}
                 className="w-full rounded-3xl object-cover"
                 priority
                 quality={90}
               />
             </div>
           </div>
-          <div className="absolute -bottom-14 left-1/2 -translate-x-1/2 w-full px-4">
+          <div className="absolute -bottom-14 left-1/2 mb-5 -translate-x-1/2 w-full px-4">
             <button
               onClick={() => setIsModalOpen(true)}
               className="w-full button-3d text-white font-black py-4 px-8 rounded-2xl text-lg sm:text-xl"
