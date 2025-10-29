@@ -65,6 +65,11 @@ export default function MasterclassLanding() {
     const cleanPhoneNumber = phoneNumber.replace(/\D/g, "")
 
     setIsSubmitting(true)
+
+
+  setIsModalOpen(false)
+    router.push("/thankyou")
+    setPhoneNumber("")
     setSubmitMessage("")
 
     try {

@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react"
 import { X } from "lucide-react"
 import Image from "next/image"
+import { useRouter } from 'next/navigation'
 
 export default function MasterclassLanding() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [phoneNumber, setPhoneNumber] = useState("")
+  const router = useRouter()
   const [submitMessage, setSubmitMessage] = useState("")
   const [showThankYou, setShowThankYou] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -44,10 +46,11 @@ export default function MasterclassLanding() {
 
     setIsSubmitting(true)
 
-    setIsModalOpen(false)
-    setShowThankYou(true)
+  setIsModalOpen(false)
+    router.push("/thankyou")
     setPhoneNumber("")
     setSubmitMessage("")
+
 
     // Backend-ga ma'lumotni yuborish (fonda, parallel)
     try {
