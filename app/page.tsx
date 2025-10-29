@@ -150,7 +150,7 @@ export default function MasterclassLanding() {
     />
   </svg>
   <span className="text-lg sm:text-xl font-black text-gray-900 whitespace-nowrap">
-    1-noyabr
+    11-12 noyabr
   </span>
 </div>
 
@@ -192,7 +192,7 @@ export default function MasterclassLanding() {
         </div>
 
         {/* Speaker Image - Half visible */}
-        <div className="-mb-8 relative" style={{ maxHeight: '500px', overflow: 'hidden' }}>
+        <div className="-mb-18 relative" style={{ maxHeight: '500px', overflow: 'hidden' }}>
           <div className="w-full max-w-md mx-auto">
             <Image
               src="/photo.webp"
@@ -208,7 +208,7 @@ export default function MasterclassLanding() {
         </div>
 
         {/* CTA Button */}
-        <div className="mb-6">
+        <div className="mb-4">
           <button
             onClick={() => setIsModalOpen(true)}
             className="button-3d w-full max-w-md mx-auto block bg-blue-900 hover:bg-blue-950 text-white text-lg sm:text-xl font-black py-4 sm:py-5 rounded-full"
@@ -254,8 +254,8 @@ export default function MasterclassLanding() {
                   </svg>
                 </div>
               </div>
-              <p className="text-gray-900 text-xl sm:text-base leading-relaxed">
-                Kasalliklar aslida nima sababdan kelib chiqishini
+              <p className="text-gray-900 text-[15px] sm:text-base leading-relaxed">
+                Kasalliklarning psixosomatik sabablarini bilib olasiz, bu orqali siz tanangiz va ongingiz o‘rtasidagi bog‘liqlikni tushunasiz
               </p>
             </div>
 
@@ -267,9 +267,8 @@ export default function MasterclassLanding() {
                   </svg>
                 </div>
               </div>
-              <p className="text-gray-900 text-sm sm:text-base leading-relaxed">
-                Qanday qilib Tushkunlik, qo'rquv va asabiylashishdan butkul xalos bo'lishni
-              </p>
+              <p className="text-gray-900 text-[15px] sm:text-base leading-relaxed">
+               Tushkunlik va qo‘rquv aslida nimadan kelib chiqishini bilib olasiz, bu orqali siz ruhiy bosimdan butunlay ozod bo‘lasiz</p>
             </div>
 
             <div className="flex items-start gap-3">
@@ -280,8 +279,8 @@ export default function MasterclassLanding() {
                   </svg>
                 </div>
               </div>
-              <p className="text-gray-900 text-sm sm:text-base leading-relaxed">
-                Qanday qilib dori-darmonsiz sog'likni tiklash usullarini bilib olasiz
+              <p className="text-gray-900 text-[15px] sm:text-base leading-relaxed">
+                Tabiiy sog‘ayish mexanizmlarini bilib olasiz, bu orqali siz o‘zingizni doimiy energiya va ishonch holatida yashashga o‘rgatasiz
               </p>
             </div>
           </div>
@@ -314,6 +313,7 @@ export default function MasterclassLanding() {
                 />
               </a>
             </div>
+             
           </footer>
       </div>
 
