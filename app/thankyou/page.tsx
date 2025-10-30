@@ -61,11 +61,7 @@ export default function ThankYouPage() {
         >
           OBUNA BO'LISH
         </button>
-
-           <div className="flex justify-center mb-6">
-          <ArrowUp size={48} className="text-blue-700 animate-arrow-bounce" />
-        </div>
-        <p className="text-center text-black mt-4 text-[15px] font-bold">
+        <p className="text-center text-black mt-4 text-[15px] font-regular">
           Obuna bo`lish uchun yuqoridagi tugmani bosing
         </p>
       </div>

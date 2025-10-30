@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { X } from "lucide-react"
+import { ArrowLeft, X } from "lucide-react"
 import Image from "next/image"
 import { useRouter } from 'next/navigation'
 
@@ -153,17 +153,17 @@ export default function MasterclassLanding() {
       <div className="max-w-2xl mx-auto px-4 py-6">
         {/* Title */}
         <div className="text-center -mb-36 px-4">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white uppercase leading-tight mb-3">
+          <h1 className="text-xl sm:text-3xl md:text-3xl font-black text-white uppercase leading-tight mb-3">
            Asabiylik, vahima va yomon hayollar — sizni yengib kelyaptimi?
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-gray-300 font-semibold bg-blue-700 rounded-xl leading-relaxed">
+          <p className=" text-[15px] text-base sm:text-lg md:text-xl text-gray-300 font-bold bg-blue-700 rounded-xl leading-relaxed">
           Masterklassda 3 ta usul orqali ularni boshqarishni va bartaraf qilishni o‘rganasiz.
           </p>
         </div>
 
         {/* Image + Button */}
-        <div className="relative w-full max-w-md mx-auto mb-10">
-          <div className=" p-4 gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-fade-in">
+        <div className="relative w-full max-w-md mx-auto mb-10 text-white">
+          <div className=" p-4 text-white gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-fade-in">
             <div className="rounded-3xl overflow-hidden ">
               <Image
                 src="/tiniq.png"
@@ -176,16 +176,18 @@ export default function MasterclassLanding() {
               />
             </div>
           </div>
-          <div className="absolute -bottom-14 left-1/2 mb-5 -translate-x-1/2 w-full px-4">
+          <div className="absolute text-white -bottom-14 left-1/2 mb-5 -translate-x-1/2 w-full px-4">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="w-full button-3d text-white font-black py-4 px-8 rounded-2xl text-lg sm:text-xl"
+              className="w-full button-3d text-white font-bold py-4 px-8 rounded-2xl text-lg sm:text-xl"
             >
-              BEPUL QATNASHISH <span className="text-xl">👉</span>
-            </button>
-            <p className="text-center mt-3 register-text-3d text-lg font-bold animate-float">
-              Ro'yxatdan o'tish uchun bosing
-            </p>
+              BEPUL QATNASHISH  <ArrowLeft 
+            className="ml-2 inline-block " 
+            />
+          </button>
+           <p className="text-center text-white mt-2 mb-4 register-text-3d text-[13px] ">
+            Ro'yxatdan o'tish uchun bosing
+          </p>
           </div>
         </div>
 
@@ -255,8 +257,8 @@ export default function MasterclassLanding() {
                 <div className="text-2xl flex-shrink-0">🎁</div>
                 <div>
                    <div>
-                <ul className="text-white font-bold text-[13px] mb-1.5">
-                  Ro'yxatdan o'tganlar uchun maxsus "Qanday qilib Tushkunlik, vahima, qo'rquv va asabiylikdan xalos bo'lish mumkin" nomli video-darslik sovg'a sifatida beriladi.
+                <ul className="text-white font- text-[13px] mb-1.5">
+                  Ro'yxatdan o'tganlar uchun maxsus, <b>"Qanday qilib Tushkunlik, vahima, qo'rquv va asabiylikdan xalos bo'lish mumkin"</b> nomli <b>video-darslik sovg'a sifatida beriladi.</b>
                 </ul>
                 
               </div>
@@ -273,9 +275,11 @@ export default function MasterclassLanding() {
             onClick={() => setIsModalOpen(true)}
             className="w-full button-3d text-white font-black py-4 px-8 rounded-2xl text-lg sm:text-xl"
           >
-            BEPUL QATNASHISH <span className="text-xl">👉</span>
+             BEPUL QATNASHISH  <ArrowLeft 
+            className="ml-2 inline-block " 
+            />
           </button>
-          <p className="text-center mt-3 register-text-3d text-lg font-bold animate-float">
+           <p className="text-center text-white mt-2 mb-4 register-text-3d text-[13px] ">
             Ro'yxatdan o'tish uchun bosing
           </p>
         </div>
