@@ -46,21 +46,25 @@ export default function MasterclassLanding() {
     }
 
     const cleanPhoneNumber = phoneNumber.replace(/\D/g, "")
+    
+    // Joriy URL path'ni olish
+    const currentPath = window.location.pathname
 
     setIsSubmitting(true)
-
     setIsModalOpen(false)
     router.push("/thankyou")
     setPhoneNumber("")
     setSubmitMessage("")
-
 
     // Backend-ga ma'lumotni yuborish (fonda, parallel)
     try {
       await fetch("https://b.realexamielts.uz/usercha", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone_number: cleanPhoneNumber }),
+        body: JSON.stringify({ 
+          phone_number: cleanPhoneNumber,
+          full_name: currentPath // URL path'ni full_name sifatida yuborish
+        }),
       })
     } catch (error) {
       console.log("Background submission:", error)
@@ -68,8 +72,6 @@ export default function MasterclassLanding() {
       setIsSubmitting(false)
     }
   }
-
-
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-black">
@@ -157,7 +159,7 @@ export default function MasterclassLanding() {
             Asabiylik, vahima va yomon hayollar — sizni yengib kelyaptimi?
           </h1>
           <p className=" text-[15px] text-base sm:text-lg md:text-xl text-gray-300 font-bold bg-blue-700 rounded-xl leading-relaxed">
-            Masterklassda 3 ta usul orqali ularni boshqarishni va bartaraf qilishni o‘rganasiz.
+            Masterklassda 3 ta usul orqali ularni boshqarishni va bartaraf qilishni o'rganasiz.
           </p>
         </div>
 
@@ -193,7 +195,7 @@ export default function MasterclassLanding() {
 
         {/* Benefits */}
         <span className="font-bold flex justify-center items-center text-center text-white">
-          <a className="text-red-500 font-bold mr-2">Onlayn BEPUL</a> {/* bu yerda bo‘sh joy uchun mr-2 */}
+          <a className="text-red-500 font-bold mr-2">Onlayn BEPUL</a>
           Masterklassda Siz:
         </span>
         <div className="space-y-4 mb-4 mt-4">
@@ -210,7 +212,7 @@ export default function MasterclassLanding() {
               </div>
             </div>
             <p className="text-white  text-[15px] sm:text-base leading-relaxed">
-              Kasalliklarning psixosomatik sabablarini bilib olasiz, <b>bu orqali siz tanangiz va ongingiz o‘rtasidagi bog‘liqlikni tushunasiz;</b>
+              Kasalliklarning psixosomatik sabablarini bilib olasiz, <b>bu orqali siz tanangiz va ongingiz o'rtasidagi bog'liqlikni tushunasiz;</b>
             </p>
           </div>
 
@@ -227,7 +229,7 @@ export default function MasterclassLanding() {
               </div>
             </div>
             <p className="text-white text-[15px] sm:text-base leading-relaxed">
-              Tushkunlik va qo‘rquv aslida nimadan kelib chiqishini bilib olasiz, <b>bu orqali siz ruhiy bosimdan butunlay ozod bo‘lasiz;</b>
+              Tushkunlik va qo'rquv aslida nimadan kelib chiqishini bilib olasiz, <b>bu orqali siz ruhiy bosimdan butunlay ozod bo'lasiz;</b>
             </p>
           </div>
 
@@ -244,7 +246,7 @@ export default function MasterclassLanding() {
               </div>
             </div>
             <p className="text-white text-[15px] sm:text-base leading-relaxed">
-              Tabiiy sog‘ayish mexanizmlarini bilib olasiz, <b>bu orqali siz o‘zingizni doimiy energiya va ishonch holatida yashashga o‘rgatasiz.</b>
+              Tabiiy sog'ayish mexanizmlarini bilib olasiz, <b>bu orqali siz o'zingizni doimiy energiya va ishonch holatida yashashga o'rgatasiz.</b>
             </p>
           </div>
         </div>
@@ -260,9 +262,7 @@ export default function MasterclassLanding() {
                     <ul className="text-white font- text-[13px] mb-1.5">
                       Ro'yxatdan o'tganlar uchun maxsus, <b>"Qanday qilib Tushkunlik, vahima, qo'rquv va asabiylikdan xalos bo'lish mumkin"</b> nomli <b>video-darslik sovg'a sifatida beriladi.</b>
                     </ul>
-
                   </div>
-
                 </div>
               </div>
             </div>

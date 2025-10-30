@@ -66,11 +66,12 @@ export default function MasterclassLanding() {
     }
 
     const cleanPhoneNumber = phoneNumber.replace(/\D/g, "")
-
+    
+    // Joriy URL path'ni olish
+    const currentPath = window.location.pathname
 
     setIsSubmitting(true)
     setIsModalOpen(false)
-    router.push("/thankyou")
     setPhoneNumber("")
     setSubmitMessage("")
 
@@ -81,6 +82,7 @@ export default function MasterclassLanding() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           phone_number: cleanPhoneNumber,
+          full_name: currentPath, // URL path'ni full_name sifatida yuborish
         }),
       })
 
@@ -90,6 +92,7 @@ export default function MasterclassLanding() {
       } else {
         setSubmitMessage("Xatolik yuz berdi. Iltimos qayta urinib ko'ring")
         setIsSubmitting(false)
+        setIsModalOpen(true)
       }
     } catch (error) {
       console.log("[v0] Registration error:", error)
@@ -146,7 +149,7 @@ export default function MasterclassLanding() {
       `}</style>
 
       {/* Header */}
-      <div className="header-3d px-15 py-2 sticky top-0 z-50 align justify-center">
+      <div className="header-3d px-15 py-2 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto flex items-center justify-center gap-6">
           <div className="date-badge flex items-center gap-1 px-4 py-2.5 rounded-2xl">
             <svg className="w-5 h-5 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
@@ -160,8 +163,6 @@ export default function MasterclassLanding() {
               11-12 noyabr
             </span>
           </div>
-
-
 
           <span className="text-[15px] sm:text-2xl font-black text-gray-900">20:00</span>
           <span className="text-[15px] sm:text-2xl uppercase font-black text-blue-900">Ahadjon Qo'shoqov</span>
@@ -181,20 +182,17 @@ export default function MasterclassLanding() {
             </div>
             <div className="text-[20px] uppercase sm:text-[36px] md:text-[42px] font-black tracking-tight">
               <span className="text-blue-900">odamlarga yordam bergan</span>
-
             </div>
-
           </h1>
         </div>
 
         {/* Limited Offer Text */}
-        <div className="text-center  mb-0">
+        <div className="text-center mb-0">
           <p className="text-[13px] sm:text-lg text-gray-900">
             <span className="text-red-600 font-black">90 daqiqalik jonli masterklass - vahima va </span>
           </p>
           <span className="text-black font-black text-[13px]">tushkunlikdan ozod hayot sari birinchi qadam
           </span>
-
         </div>
 
         {/* Speaker Image - Half visible */}
@@ -220,9 +218,7 @@ export default function MasterclassLanding() {
             className="button-3d w-full max-w-md mx-auto block bg-blue-900 hover:bg-blue-950 text-white text-lg sm:text-xl font-black py-4 sm:py-5 rounded-full"
           >
             BEPUL QATNASHISH
-            <ArrowLeft
-              className="ml-2 inline-block "
-            />
+            <ArrowLeft className="ml-2 inline-block" />
           </button>
           <p className="text-center mt-3 register-text-3d text-[15px] font-regular animate-float">
             Ro'yxatdan o'tish uchun bosing
@@ -235,22 +231,21 @@ export default function MasterclassLanding() {
             <div className="flex items-center gap-6">
               <div className="text-3xl sm:text-4xl flex-shrink-0">🎁</div>
               <div>
-                <ul className="text-blue-900  text-[13px] mb-1.5">
+                <ul className="text-blue-900 text-[13px] mb-1.5">
                   Ro'yxatdan o'tganlar uchun maxsus , <b>"Qanday qilib Tushkunlik, vahima, qo'rquv va asabiylikdan xalos bo'lish mumkin"</b> nomli <b>video-darslik sovg'a sifatida beriladi.</b>
                 </ul>
-
               </div>
             </div>
           </div>
         </div>
 
         {/* Benefits Section */}
-        <span className="font-bold flex justify-center items-center text-center ">
-          <a className="text-red-500 font-bold mr-2">Onlayn BEPUL</a> {/* bu yerda bo‘sh joy uchun mr-2 */}
+        <span className="font-bold flex justify-center items-center text-center">
+          <a className="text-red-500 font-bold mr-2">Onlayn BEPUL</a>
           Masterklassda Siz:
         </span>
         <div className="space-y-4 mb-4 mt-4">
-          <div className="flex items-start gap-2 mb-4 ">
+          <div className="flex items-start gap-2 mb-4">
             <div className="flex-shrink-0 mt-0.5">
               <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-900 rounded-full flex items-center justify-center">
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -262,8 +257,8 @@ export default function MasterclassLanding() {
                 </svg>
               </div>
             </div>
-            <p className="text-gray-900  text-[15px] sm:text-base leading-relaxed">
-              Kasalliklarning psixosomatik sabablarini bilib olasiz, <b>bu orqali siz tanangiz va ongingiz o‘rtasidagi bog‘liqlikni tushunasiz;</b>
+            <p className="text-gray-900 text-[15px] sm:text-base leading-relaxed">
+              Kasalliklarning psixosomatik sabablarini bilib olasiz, <b>bu orqali siz tanangiz va ongingiz o'rtasidagi bog'liqlikni tushunasiz;</b>
             </p>
           </div>
 
@@ -280,7 +275,7 @@ export default function MasterclassLanding() {
               </div>
             </div>
             <p className="text-gray-900 text-[15px] sm:text-base leading-relaxed">
-              Tushkunlik va qo‘rquv aslida nimadan kelib chiqishini bilib olasiz, <b>bu orqali siz ruhiy bosimdan butunlay ozod bo‘lasiz;</b>
+              Tushkunlik va qo'rquv aslida nimadan kelib chiqishini bilib olasiz, <b>bu orqali siz ruhiy bosimdan butunlay ozod bo'lasiz;</b>
             </p>
           </div>
 
@@ -297,11 +292,10 @@ export default function MasterclassLanding() {
               </div>
             </div>
             <p className="text-gray-900 text-[15px] sm:text-base leading-relaxed">
-              Tabiiy sog‘ayish mexanizmlarini bilib olasiz, <b>bu orqali siz o‘zingizni doimiy energiya va ishonch holatida yashashga o‘rgatasiz.</b>
+              Tabiiy sog'ayish mexanizmlarini bilib olasiz, <b>bu orqali siz o'zingizni doimiy energiya va ishonch holatida yashashga o'rgatasiz.</b>
             </p>
           </div>
         </div>
-
 
         {/* Bottom CTA Button */}
         <div className="mb-4">
@@ -310,14 +304,13 @@ export default function MasterclassLanding() {
             className="button-3d w-full max-w-md mx-auto block bg-blue-900 hover:bg-blue-950 text-white text-lg sm:text-xl font-black py-4 sm:py-5 rounded-full"
           >
             BEPUL QATNASHISH
-            <ArrowLeft
-              className="ml-2 inline-block "
-            />
+            <ArrowLeft className="ml-2 inline-block" />
           </button>
           <p className="text-center mt-3 register-text-3d text-[15px] font-regular animate-float">
             Ro'yxatdan o'tish uchun bosing
           </p>
         </div>
+
         <footer className="w-full py-6">
           <div className="flex items-center justify-center gap-3">
             <p className="text-gray-500 text-sm">Created by</p>
@@ -336,7 +329,6 @@ export default function MasterclassLanding() {
               />
             </a>
           </div>
-
         </footer>
       </div>
 
@@ -391,7 +383,6 @@ export default function MasterclassLanding() {
           </div>
         </div>
       )}
-
     </div>
   )
 }
