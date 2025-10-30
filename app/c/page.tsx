@@ -18,6 +18,9 @@ export default function MasterclassLanding() {
     } else {
       document.body.style.overflow = "auto"
     }
+    if (isModalOpen && !phoneNumber) {
+    setPhoneNumber("+998 ");
+  }
   }, [isModalOpen])
 
   const handlePhoneChange = (e) => {
@@ -63,11 +66,10 @@ export default function MasterclassLanding() {
     }
 
     const cleanPhoneNumber = phoneNumber.replace(/\D/g, "")
-
+    
+    
     setIsSubmitting(true)
-
-
-  setIsModalOpen(false)
+    setIsModalOpen(false)
     router.push("/thankyou")
     setPhoneNumber("")
     setSubmitMessage("")
@@ -92,7 +94,7 @@ export default function MasterclassLanding() {
     } catch (error) {
       console.log("[v0] Registration error:", error)
       // Xatolik bo'lsa ham foydalanuvchini yo'naltirish (agar kerak bo'lsa)
-      router.push("/thank-you")
+      router.push("/thankyou")
     }
   }
 
@@ -219,7 +221,8 @@ export default function MasterclassLanding() {
             className="button-3d w-full max-w-md mx-auto block bg-blue-900 hover:bg-blue-950 text-white text-lg sm:text-xl font-black py-4 sm:py-5 rounded-full"
           >
             BEPUL QATNASHISH
-          </button> <p className="text-center mt-3 register-text-3d text-lg font-bold animate-float">
+          </button>
+           <p className="text-center mt-3 register-text-3d text-lg font-bold animate-float">
               Ro'yxatdan o'tish uchun bosing
             </p>
         </div>
@@ -230,68 +233,73 @@ export default function MasterclassLanding() {
             <div className="flex items-center gap-6">
               <div className="text-3xl sm:text-4xl flex-shrink-0">🎁</div>
               <div>
-                <ul className="text-blue-900 font-bold text-[15px] mb-1.5">
-                  Ro'yxatdan o'tganlar uchun maxsus ushbu video darsliklar sovg'a sifatida beriladi:
+                <ul className="text-blue-900 font-bold text-[13px] mb-1.5">
+                  Ro'yxatdan o'tganlar uchun maxsus "Qanday qilib Tushkunlik, vahima, qo'rquv va asabiylikdan xalos bo'lish mumkin" nomli video-darslik sovg'a sifatida beriladi.
                 </ul>
-                <ol className="text-gray-700 sm:text-sm leading-relaxed font-bold text-[13px] mb-1.5">
-                  <li>- Kasalliklar aslida nimadan kelib chiqadi?
-                  </li>
-                  <li>
-                    - Tushkunlik, qo'rquv, asabiylashish, vahimadan qanday chiqish mumkin?
-                  </li>
-                  <li>
-                    - Dori-darmonsiz sog'likni qanday tiklash mumkin?
-                  </li>
-                 </ol>
+                
               </div>
             </div>
           </div>
         </div>
 
         {/* Benefits Section */}
-        <div className="max-w-md mx-auto mb-12">
-          <h2 className="text-lg sm:text-xl font-black text-gray-900 mb-5">Aksiyada qatnashib:</h2>
-          
-          <div className="space-y-2">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 mt-0.5">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-900 rounded-full flex items-center justify-center">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                </div>
-              </div>
-              <p className="text-gray-900 text-[15px] sm:text-base leading-relaxed">
-                Kasalliklarning psixosomatik sabablarini bilib olasiz, bu orqali siz tanangiz va ongingiz o‘rtasidagi bog‘liqlikni tushunasiz;
-              </p>
-            </div>
+<span className="font-bold flex justify-center items-center text-center ">
+  <a className="text-red-500 font-bold mr-2">Onlayn BEPUL</a> {/* bu yerda bo‘sh joy uchun mr-2 */}
+  Masterklassda Siz:
+</span>
+<div className="space-y-4 mb-4 mt-4">
+  <div className="flex items-start gap-2 mb-4 ">
+    <div className="flex-shrink-0 mt-0.5">
+      <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-900 rounded-full flex items-center justify-center">
+        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fillRule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </div>
+    </div>
+    <p className="text-gray-900  text-[15px] sm:text-base leading-relaxed">
+      Kasalliklarning psixosomatik sabablarini bilib olasiz, <b>bu orqali siz tanangiz va ongingiz o‘rtasidagi bog‘liqlikni tushunasiz;</b>
+    </p>
+  </div>
 
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 mt-0.5">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-900 rounded-full flex items-center justify-center">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                </div>
-              </div>
-              <p className="text-gray-900 text-[15px] sm:text-base leading-relaxed">
-               Tushkunlik va qo‘rquv aslida nimadan kelib chiqishini bilib olasiz, bu orqali siz ruhiy bosimdan butunlay ozod bo‘lasiz;</p>
-            </div>
+  <div className="flex items-start gap-3">
+    <div className="flex-shrink-0 mt-0.5">
+      <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-900 rounded-full flex items-center justify-center">
+        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fillRule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </div>
+    </div>
+    <p className="text-gray-900 text-[15px] sm:text-base leading-relaxed">
+      Tushkunlik va qo‘rquv aslida nimadan kelib chiqishini bilib olasiz, <b>bu orqali siz ruhiy bosimdan butunlay ozod bo‘lasiz;</b>
+    </p>
+  </div>
 
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 mt-0.5">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-900 rounded-full flex items-center justify-center">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                </div>
-              </div>
-              <p className="text-gray-900 text-[15px] sm:text-base leading-relaxed">
-                Tabiiy sog‘ayish mexanizmlarini bilib olasiz, bu orqali siz o‘zingizni doimiy energiya va ishonch holatida yashashga o‘rgatasiz.
-              </p>
-            </div>
-          </div>
-        </div>
+  <div className="flex items-start gap-3">
+    <div className="flex-shrink-0 mt-0.5">
+      <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-900 rounded-full flex items-center justify-center">
+        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fillRule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </div>
+    </div>
+    <p className="text-gray-900 text-[15px] sm:text-base leading-relaxed">
+      Tabiiy sog‘ayish mexanizmlarini bilib olasiz, <b>bu orqali siz o‘zingizni doimiy energiya va ishonch holatida yashashga o‘rgatasiz.</b>
+    </p>
+  </div>
+</div>
+
 
         {/* Bottom CTA Button */}
         <div className="mb-8">
@@ -328,63 +336,57 @@ export default function MasterclassLanding() {
       </div>
 
       {/* Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm animate-fade-in">
-          <div className="bg-white rounded-3xl max-w-md w-full p-8 relative shadow-2xl">
-            <button
-              onClick={() => {
-                setIsModalOpen(false)
-                setSubmitMessage("")
-              }}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors p-1 hover:bg-gray-100 rounded-full"
-              disabled={isSubmitting}
-            >
-              <X size={28} strokeWidth={2.5} />
-            </button>
+{isModalOpen && (
+  <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm animate-fade-in">
+    <div className="bg-white rounded-3xl max-w-md w-full p-8 relative shadow-2xl">
+      <button
+        onClick={() => {
+          setIsModalOpen(false)
+          setSubmitMessage("")
+        }}
+        className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors p-1 hover:bg-gray-100 rounded-full"
+      >
+        <X size={28} strokeWidth={2.5} />
+      </button>
 
-            <h2 className="text-3xl font-black text-gray-900 mb-6 text-center">
-              Ro'yxatdan o'tish
-            </h2>
+      <h2 className="text-3xl font-black text-gray-900 mb-6 text-center">
+        Masterklassga Ro'yxatdan O'tish
+      </h2>
 
-            <div className="space-y-5">
-              <div>
-                <label className="block text-gray-700 font-semibold mb-2 text-base">
-                  Telefon raqam <span className="text-red-600">*</span>
-                </label>
-                <input
-                  type="tel"
-                  value={phoneNumber}
-                  onChange={handlePhoneChange}
-                  disabled={isSubmitting}
-                  className="w-full px-4 py-3.5 border-2 border-gray-300 rounded-2xl focus:border-blue-900 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all text-gray-900 text-base disabled:bg-gray-100 disabled:cursor-not-allowed"
-                  placeholder="+998 __ ___ __ __"
-                  maxLength={19}
-                />
-              </div>
-
-              {submitMessage && (
-                <div
-                  className={`p-4 rounded-xl text-center text-base font-medium ${
-                    submitMessage.includes("muvaffaqiyatli")
-                      ? "bg-green-100 text-green-800 border border-green-200"
-                      : "bg-red-100 text-red-800 border border-red-200"
-                  }`}
-                >
-                  {submitMessage}
-                </div>
-              )}
-
-              <button
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-                className="w-full bg-blue-900 hover:bg-blue-950 text-white text-xl font-black py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] disabled:bg-blue-700 disabled:cursor-not-allowed disabled:transform-none"
-              >
-                {isSubmitting ? "Yuklanmoqda..." : "Ro'yxatdan o'tish"}
-              </button>
-            </div>
-          </div>
+      <div className="space-y-5">
+        <div>
+          <label className="block text-gray-700 font-semibold mb-2 text-base">
+            Telefon raqam <span className="text-red-600">*</span>
+          </label>
+          <input
+            type="tel"
+            value={phoneNumber}
+            onChange={handlePhoneChange}
+            disabled={isSubmitting}
+            className="w-full px-4 py-3.5 border-2 border-gray-300 rounded-2xl focus:border-blue-900 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all text-gray-900 text-base disabled:opacity-50"
+            placeholder="+998 __ ___ __ __"
+            maxLength={19}
+          />
         </div>
-      )}
+
+        {submitMessage && (
+          <div className="p-4 rounded-xl text-center text-base font-medium bg-red-100 text-red-800 border border-red-200">
+            {submitMessage}
+          </div>
+        )}
+
+        <button
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+          className="w-full bg-blue-900 hover:bg-blue-950 disabled:opacity-50 disabled:cursor-not-allowed text-white text-[10ox] font-black py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.02]"
+        >
+          {isSubmitting ? "Yuborilmoqda..." : "Masterklassga Ro'yxatdan O'tish"}
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   )
 }

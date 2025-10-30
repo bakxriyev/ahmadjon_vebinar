@@ -15,6 +15,9 @@ export default function MasterclassLanding() {
 
   useEffect(() => {
     document.body.style.overflow = isModalOpen ? "hidden" : "auto"
+     if (isModalOpen && !phoneNumber) {
+    setPhoneNumber("+998 ");
+  }
   }, [isModalOpen])
 
   const handlePhoneChange = (e) => {
@@ -151,10 +154,10 @@ export default function MasterclassLanding() {
         {/* Title */}
         <div className="text-center -mb-36 px-4">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white uppercase leading-tight mb-3">
-            Bu 3 texnika asabiylikdan azob chekkan minglab odamlarga yordam bergan.
+           Asabiylik, vahima va yomon hayollar — sizni yengib kelyaptimi?
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-gray-300 font-semibold bg-blue-700 rounded-xl leading-relaxed">
-            90 daqiqalik jonli masterklass — vahima va tushkunlikdan ozod hayot sari birinchi qadam.
+          Masterklassda 3 ta usul orqali ularni boshqarishni va bartaraf qilishni o‘rganasiz.
           </p>
         </div>
 
@@ -187,23 +190,62 @@ export default function MasterclassLanding() {
         </div>
 
         {/* Benefits */}
-        <div className="max-w-md mx-auto mb-8 px-4">
-          <h2 className="text-lg font-black text-white mb-4 uppercase">ONLAYN BEPUL DARSDA SIZ:</h2>
-          <ul className="space-y-3 text-white text-sm leading-relaxed">
-            <li className="flex items-start gap-2">
-              ✅ Kasalliklarning psixosomatik sabablarini bilib olasiz, bu orqali siz tanangiz va ongingiz o'rtasidagi
-              bog'liqlikni tushunasiz;
-            </li>
-            <li className="flex items-start gap-2">
-              ✅ Tushkunlik va qo'rquv aslida nimadan kelib chiqishini bilib olasiz, bu orqali siz ruhiy bosimdan
-              butunlay ozod bo'lasiz;
-            </li>
-            <li className="flex items-start gap-2">
-              ✅ Tabiiy sog'ayish mexanizmlarini bilib olasiz, bu orqali siz o'zingizni doimiy energiya va ishonch
-              holatida yashashga o'rgatasiz.
-            </li>
-          </ul>
-        </div>
+<span className="font-bold flex justify-center items-center text-center text-white">
+  <a className="text-red-500 font-bold mr-2">Onlayn BEPUL</a> {/* bu yerda bo‘sh joy uchun mr-2 */}
+  Masterklassda Siz:
+</span>
+<div className="space-y-4 mb-4 mt-4">
+  <div className="flex items-start gap-2 mb-4 ">
+    <div className="flex-shrink-0 mt-0.5">
+      <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-900 rounded-full flex items-center justify-center">
+        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fillRule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </div>
+    </div>
+    <p className="text-white  text-[15px] sm:text-base leading-relaxed">
+      Kasalliklarning psixosomatik sabablarini bilib olasiz, <b>bu orqali siz tanangiz va ongingiz o‘rtasidagi bog‘liqlikni tushunasiz;</b>
+    </p>
+  </div>
+
+  <div className="flex items-start gap-3 ">
+    <div className="flex-shrink-0 mt-0.5">
+      <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-900 rounded-full flex items-center justify-center">
+        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fillRule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </div>
+    </div>
+    <p className="text-white text-[15px] sm:text-base leading-relaxed">
+      Tushkunlik va qo‘rquv aslida nimadan kelib chiqishini bilib olasiz, <b>bu orqali siz ruhiy bosimdan butunlay ozod bo‘lasiz;</b>
+    </p>
+  </div>
+
+  <div className="flex items-start gap-3">
+    <div className="flex-shrink-0 mt-0.5">
+      <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-900 rounded-full flex items-center justify-center">
+        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fillRule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </div>
+    </div>
+    <p className="text-white text-[15px] sm:text-base leading-relaxed">
+      Tabiiy sog‘ayish mexanizmlarini bilib olasiz, <b>bu orqali siz o‘zingizni doimiy energiya va ishonch holatida yashashga o‘rgatasiz.</b>
+    </p>
+  </div>
+</div>
 
         {/* Gift Box */}
         <div className="max-w-md mx-auto mb-8 px-4">
@@ -212,14 +254,13 @@ export default function MasterclassLanding() {
               <div className="flex items-center gap-4">
                 <div className="text-2xl flex-shrink-0">🎁</div>
                 <div>
-                  <ul className="text-blue-400 font-bold text-sm mb-2">
-                    Ro'yxatdan o'tganlar uchun maxsus ushbu video darsliklar sovg'a sifatida beriladi:
-                  </ul>
-                  <ol className="text-gray-300 text-xs leading-relaxed font-medium space-y-1">
-                    <li>- Kasalliklar aslida nimadan kelib chiqadi?</li>
-                    <li>- Tushkunlik, qo'rquv, asabiylashish, vahimadan qanday chiqish mumkin?</li>
-                    <li>- Dori-darmonsiz sog'likni qanday tiklash mumkin?</li>
-                  </ol>
+                   <div>
+                <ul className="text-white font-bold text-[13px] mb-1.5">
+                  Ro'yxatdan o'tganlar uchun maxsus "Qanday qilib Tushkunlik, vahima, qo'rquv va asabiylikdan xalos bo'lish mumkin" nomli video-darslik sovg'a sifatida beriladi.
+                </ul>
+                
+              </div>
+                  
                 </div>
               </div>
             </div>
@@ -257,53 +298,55 @@ export default function MasterclassLanding() {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm animate-fade-in">
-          <div className="bg-white rounded-3xl max-w-md w-full p-8 relative shadow-2xl">
-            <button
-              onClick={() => {
-                setIsModalOpen(false)
-                setSubmitMessage("")
-              }}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors p-1 hover:bg-gray-100 rounded-full"
-            >
-              <X size={28} strokeWidth={2.5} />
-            </button>
+  <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm animate-fade-in">
+    <div className="bg-white rounded-3xl max-w-md w-full p-8 relative shadow-2xl">
+      <button
+        onClick={() => {
+          setIsModalOpen(false)
+          setSubmitMessage("")
+        }}
+        className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors p-1 hover:bg-gray-100 rounded-full"
+      >
+        <X size={28} strokeWidth={2.5} />
+      </button>
 
-            <h2 className="text-3xl font-black text-gray-900 mb-6 text-center">Ro'yxatdan o'tish</h2>
+      <h2 className="text-3xl font-black text-gray-900 mb-6 text-center">
+        Masterklassga Ro'yxatdan O'tish
+      </h2>
 
-            <div className="space-y-5">
-              <div>
-                <label className="block text-gray-700 font-semibold mb-2 text-base">
-                  Telefon raqam <span className="text-red-600">*</span>
-                </label>
-                <input
-                  type="tel"
-                  value={phoneNumber}
-                  onChange={handlePhoneChange}
-                  disabled={isSubmitting}
-                  className="w-full px-4 py-3.5 border-2 border-gray-300 rounded-2xl focus:border-blue-900 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all text-gray-900 text-base disabled:opacity-50"
-                  placeholder="+998 __ ___ __ __"
-                  maxLength={19}
-                />
-              </div>
-
-              {submitMessage && (
-                <div className="p-4 rounded-xl text-center text-base font-medium bg-red-100 text-red-800 border border-red-200">
-                  {submitMessage}
-                </div>
-              )}
-
-              <button
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-                className="w-full bg-blue-900 hover:bg-blue-950 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xl font-black py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.02]"
-              >
-                {isSubmitting ? "Yuborilmoqda..." : "Ro'yxatdan o'tish"}
-              </button>
-            </div>
-          </div>
+      <div className="space-y-5">
+        <div>
+          <label className="block text-gray-700 font-semibold mb-2 text-base">
+            Telefon raqam <span className="text-red-600">*</span>
+          </label>
+          <input
+            type="tel"
+            value={phoneNumber}
+            onChange={handlePhoneChange}
+            disabled={isSubmitting}
+            className="w-full px-4 py-3.5 border-2 border-gray-300 rounded-2xl focus:border-blue-900 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all text-gray-900 text-base disabled:opacity-50"
+            placeholder="+998 __ ___ __ __"
+            maxLength={19}
+          />
         </div>
-      )}
+
+        {submitMessage && (
+          <div className="p-4 rounded-xl text-center text-base font-medium bg-red-100 text-red-800 border border-red-200">
+            {submitMessage}
+          </div>
+        )}
+
+        <button
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+          className="w-full bg-blue-900 hover:bg-blue-950 disabled:opacity-50 disabled:cursor-not-allowed text-white text-[10ox] font-black py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.02]"
+        >
+          {isSubmitting ? "Yuborilmoqda..." : "Masterklassga Ro'yxatdan O'tish"}
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   )
 }
