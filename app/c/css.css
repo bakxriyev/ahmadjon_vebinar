@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap");
+
+* {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-float {
+  animation: float 2s ease-in-out infinite;
+}
+
+.header-3d {
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.06);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.button-3d {
+  transform: translateY(0);
+  box-shadow: 0 6px 0 #0c4a6e, 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.15s ease;
+  will-change: transform;
+}
+
+.button-3d:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 #0c4a6e, 0 12px 20px rgba(0, 0, 0, 0.25);
+}
+
+.button-3d:active {
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 #0c4a6e, 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.date-badge {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateZ(0);
+  will-change: transform;
+}
