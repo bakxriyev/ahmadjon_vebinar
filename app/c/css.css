@@ -1,25 +1,48 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap");
-
-* {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+/* 3D Header Style */
+.header-3d {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Date Badge Style */
+.date-badge {
+  background: linear-gradient(135deg, #e3f2fd 0%, #f0f4ff 100%);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* 3D Button Style */
+.button-3d {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 10;
+}
+
+.button-3d:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.button-3d:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Rasm konteynerini negative margin bilan tugma ustiga qo'yish */
+.speaker-image-container {
+  position: relative;
+  z-index: 5;
+}
+
+/* Fade In Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: scale(0.95);
   }
   to {
     opacity: 1;
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-4px);
+    transform: scale(1);
   }
 }
 
@@ -27,37 +50,17 @@
   animation: fadeIn 0.3s ease-out;
 }
 
+/* Float Animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
 .animate-float {
-  animation: float 2s ease-in-out infinite;
-}
-
-.header-3d {
-  background: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.06);
-  transform: translateZ(0);
-  will-change: transform;
-}
-
-.button-3d {
-  transform: translateY(0);
-  box-shadow: 0 6px 0 #0c4a6e, 0 8px 16px rgba(0, 0, 0, 0.2);
-  transition: all 0.15s ease;
-  will-change: transform;
-}
-
-.button-3d:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 0 #0c4a6e, 0 12px 20px rgba(0, 0, 0, 0.25);
-}
-
-.button-3d:active {
-  transform: translateY(3px);
-  box-shadow: 0 3px 0 #0c4a6e, 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.date-badge {
-  background: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transform: translateZ(0);
-  will-change: transform;
+  animation: float 3s ease-in-out infinite;
 }

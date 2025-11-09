@@ -5,7 +5,6 @@ import type React from "react"
 import { useState, useEffect, useCallback, useMemo } from "react"
 import { ArrowLeft, X } from "lucide-react"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
 import "./css.css"
 
 export default function MasterclassLanding() {
@@ -13,7 +12,6 @@ export default function MasterclassLanding() {
   const [phoneNumber, setPhoneNumber] = useState("")
   const [submitMessage, setSubmitMessage] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const router = useRouter()
 
   useEffect(() => {
     if (isModalOpen) {
@@ -81,7 +79,7 @@ export default function MasterclassLanding() {
       })
 
       if (response.ok) {
-        router.push("/thankyou")
+        window.location.href = "https://t.me/+QGtp5PvT9Z9jOTEy"
       } else {
         setSubmitMessage("Xatolik yuz berdi. Iltimos qayta urinib ko'ring")
         setIsSubmitting(false)
@@ -89,9 +87,9 @@ export default function MasterclassLanding() {
       }
     } catch (error) {
       console.log("[v0] Registration error:", error)
-      router.push("/thankyou")
+      window.location.href = "https://t.me/+QGtp5PvT9Z9jOTEy"
     }
-  }, [phoneNumber, router])
+  }, [phoneNumber])
 
   const benefitsList = useMemo(
     () => [
